@@ -1,0 +1,47 @@
+imagePullSecrets: []
+nameOverride: "scheduled-job-test"
+fullnameOverride: ""
+schedule: "*/1 * * * *"
+concurrencyPolicy: "Forbid"
+failedJobsHistoryLimit: 1
+successfulJobsHistoryLimit: 1
+backoffLimit: 0
+restartPolicy: "Never"
+
+image:
+  repository: "localhost:5001/cronsample"
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+environment:
+  JOB : "HealthJob"
+  TEST_ENDPOINT_BASE_URL : "https://dev.to"
+
+service:
+  port: 8080
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 0.3Gi
+  requests:
+    cpu: 100m
+    memory: 0.15Gi
+
+nodeSelector:
+  ms: all
+
+tolerations: []
+
+affinity: {}
